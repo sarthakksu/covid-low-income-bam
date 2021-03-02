@@ -1,5 +1,6 @@
 #updated
 tf_m1_venv/
+venv/
 # Compiled python modules.
 *.pyc
 
