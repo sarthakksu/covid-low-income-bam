@@ -46,7 +46,9 @@ def _multiples_and_weights(config):
       "qqp": 363869,
       "sst": 67349,
       "sts": 11498,
-      "rte": 2490
+      "rte": 2490,
+      "trec":9240,
+      "cli": 2920,
   }
 
   def map_values(f, d):

@@ -1,0 +1,10 @@
+data_dir/pretrained_models
+data_dir/glue_data/cola
+data_dir/glue_data/mnli
+data_dir/glue_data/mrpc
+data_dir/glue_data/qnli
+data_dir/glue_data/qqp
+data_dir/glue_data/rte
+data_dir/glue_data/sst
+data_dir/glue_data/sts
+data_dir/glue_data/wnli

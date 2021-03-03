@@ -393,6 +393,47 @@ class SST(ClassificationTask):
         examples += self._load_glue(lines, split, 0, None, 1, True)
     return examples
 
+class CLI(ClassificationTask):
+  """Covid Low income task"""
+
+  def __init__(self, config, tokenizer):
+    super(CLI, self).__init__(config, "cli", tokenizer,
+                              ['Stay at Home, quarantine',
+                               'Caution and advice to general public',
+                               'Requesting for specific help, not comments',
+                               'Reports/Complaints of utility services provider and landlords (inside the house); utlities policy and programs',
+                               'COVID-19 Psychological impacts (need to have clear signals of mental and stessful impacts)',
+                               'Everyday life inconvenience/disruption on edcation and life'])
+
+  def _create_examples(self, lines, split):
+    examples = []
+    for _ in range(task_weighting.get_task_multiple(self, split)):
+      if "test" in split:
+        examples += self._load_glue(lines, split, 2, None, None, True)
+      else:
+        examples += self._load_glue(lines, split, 2, None, 1, True)
+    return examples
+
+class TREC(ClassificationTask):
+  """TREC-IS task"""
+
+  def __init__(self, config, tokenizer):
+    super(TREC, self).__init__(config, "trec", tokenizer,
+                               ['Irrelevant', 'Sentiment', 'News', 'ContextualInformation',
+                                'Official', 'FirstPartyObservation', 'CleanUp', 'GoodsServices',
+                                'Advice', 'Factoid', 'Hashtags', 'OriginalEvent', 'Volunteer',
+                                'NewSubEvent', 'Donations', 'MultimediaShare',
+                                'ThirdPartyObservation', 'InformationWanted', 'ServiceAvailable',
+                                'EmergingThreats', 'Location'])
+
+  def _create_examples(self, lines, split):
+    examples = []
+    for _ in range(task_weighting.get_task_multiple(self, split)):
+      if "test" in split:
+        examples += self._load_glue(lines, split, 1, None, None, True)
+      else:
+        examples += self._load_glue(lines, split, 1, None, 2, True)
+    return examples
 
 class QQP(ClassificationTask):
   """Quora Question Pair."""
