@@ -8,3 +8,4 @@ data_dir/glue_data/rte
 data_dir/glue_data/sst
 data_dir/glue_data/sts
 data_dir/glue_data/wnli
+data_dir/models
