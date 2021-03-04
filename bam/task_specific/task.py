@@ -83,7 +83,7 @@ class Task(object):
 def read_tsv(input_file, quotechar=None, max_lines=None):
   """Reads a tab separated value file."""
   with tf.gfile.Open(input_file, "r") as f:
-    reader = csv.reader(f, delimiter="\t", quotechar=quotechar)
+    reader = csv.reader(f, delimiter="\t", quotechar="'")
     lines = []
     for i, line in enumerate(reader):
       if max_lines and i >= max_lines:
