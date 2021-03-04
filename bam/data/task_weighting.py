@@ -47,7 +47,7 @@ def _multiples_and_weights(config):
       "sst": 67349,
       "sts": 11498,
       "rte": 2490,
-      "trec":9240,
+      "trecis":9240,
       "cli": 2920,
   }
 

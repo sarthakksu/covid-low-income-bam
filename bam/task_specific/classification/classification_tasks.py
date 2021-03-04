@@ -414,11 +414,11 @@ class CLI(ClassificationTask):
         examples += self._load_glue(lines, split, 2, None, 1, True)
     return examples
 
-class TREC(ClassificationTask):
+class TRECIS(ClassificationTask):
   """TREC-IS task"""
 
   def __init__(self, config, tokenizer):
-    super(TREC, self).__init__(config, "trec", tokenizer,
+    super(TRECIS, self).__init__(config, "trecis", tokenizer,
                                ['Irrelevant', 'Sentiment', 'News', 'ContextualInformation',
                                 'Official', 'FirstPartyObservation', 'CleanUp', 'GoodsServices',
                                 'Advice', 'Factoid', 'Hashtags', 'OriginalEvent', 'Volunteer',

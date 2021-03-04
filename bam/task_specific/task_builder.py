@@ -51,7 +51,7 @@ def get_task(config, task_name, tokenizer):
     return classification_tasks.STS(config, tokenizer)
   elif task_name == "cli":
     return classification_tasks.CLI(config, tokenizer)
-  elif task_name == "trec":
-    return classification_tasks.TREC(config, tokenizer)
+  elif task_name == "trecis":
+    return classification_tasks.TRECIS(config, tokenizer)
   else:
     raise ValueError("Unknown task " + task_name)
