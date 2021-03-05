@@ -32,7 +32,8 @@ from bam.data import task_weighting
 from bam.helpers import training_utils
 from bam.helpers import utils
 from bam.task_specific import task_builder
-from tensorflow.contrib import tpu as contrib_tpu
+#from tensorflow.contrib import tpu as contrib_tpu
+from tensorflow.compat.v1.estimator import tpu as contrib_tpu
 from transformers import TFAutoModel,AutoConfig
 
 class MultitaskModel(object):
