@@ -34,7 +34,7 @@ from bam.helpers import utils
 from bam.task_specific import task_builder
 from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import tpu as contrib_tpu
-
+from transformers import TFAutoModel
 
 class MultitaskModel(object):
   """A multi-task model built on top of BERT."""
@@ -48,6 +48,7 @@ class MultitaskModel(object):
       bert_config.hidden_size = 144
     assert config.max_seq_length <= bert_config.max_position_embeddings
     with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):
+      #bert_model = TFAutoModel.from_pretrained(config.shared_encoder)
       bert_model = modeling.BertModel(
           config=bert_config,
           is_training=is_training,
