@@ -417,6 +417,9 @@ class CLI(ClassificationTask):
         examples += self._load_glue(lines, split, 2, None, 1, True)
     return examples
 
+  def get_scorer(self):
+    return classification_metrics.F1Scorer()
+
 class TRECIS(ClassificationTask):
   """TREC-IS task"""
 
