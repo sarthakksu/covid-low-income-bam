@@ -32,7 +32,6 @@ from bam.data import task_weighting
 from bam.helpers import training_utils
 from bam.helpers import utils
 from bam.task_specific import task_builder
-from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import tpu as contrib_tpu
 from transformers import TFAutoModel,AutoConfig
 
@@ -141,9 +140,7 @@ class ModelRunner(object):
 
     is_per_host = contrib_tpu.InputPipelineConfig.PER_HOST_V2
     tpu_cluster_resolver = None
-    if config.use_tpu and config.tpu_name:
-      tpu_cluster_resolver = contrib_cluster_resolver.TPUClusterResolver(
-          config.tpu_name, zone=config.tpu_zone, project=config.gcp_project)
+
     run_config = contrib_tpu.RunConfig(
         cluster=tpu_cluster_resolver,
         model_dir=config.checkpoints_dir,
