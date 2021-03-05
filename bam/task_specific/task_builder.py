@@ -21,11 +21,12 @@ from __future__ import print_function
 
 from bam.bert import tokenization
 from bam.task_specific.classification import classification_tasks
-
+from transformers import AutoTokenizer
 
 def get_tasks(config):
-  tokenizer = tokenization.FullTokenizer(vocab_file=config.vocab_file,
-                                         do_lower_case=config.do_lower_case)
+  #tokenizer = tokenization.FullTokenizer(vocab_file=config.vocab_file,
+  #                                       do_lower_case=config.do_lower_case)
+  tokenizer = AutoTokenizer.from_pretrained(config.shared_encoder,do_lower_case=config.do_lower_case)
   return [get_task(config, task_name, tokenizer)
           for task_name in config.task_names]
 

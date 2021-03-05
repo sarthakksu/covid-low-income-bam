@@ -263,11 +263,11 @@ class ClassificationTask(SingleOutputTask):
   def get_prediction_module(self, bert_model, features, is_training,
                             percent_done):
     num_labels = len(self._label_list)
-    reprs = bert_model.get_pooled_output()
-    #_,reprs,_,_ = bert_model(
-    #         input_ids=features["input_ids"],
-    #         attention_mask=features["input_mask"],
-    #         token_type_ids=features["segment_ids"])
+    #reprs = bert_model.get_pooled_output()
+    _,reprs,_,_ = bert_model(
+             input_ids=features["input_ids"],
+             attention_mask=features["input_mask"],
+             token_type_ids=features["segment_ids"])
     if is_training:
       reprs = tf.nn.dropout(reprs, keep_prob=0.9)
 

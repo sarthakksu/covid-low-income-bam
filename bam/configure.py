@@ -114,6 +114,7 @@ class Config(object):
     self.bert_config_file = os.path.join(bert_dir, 'bert_config.json')
     self.vocab_file = os.path.join(bert_dir, 'vocab.txt')
     self.init_checkpoint = os.path.join(bert_dir, 'bert_model.ckpt')
+    self.shared_encoder = "bert-base-uncased"
 
     # where to save model checkpoints, results, etc.
     model_dir = os.path.join(topdir, 'models', self.model_name)
