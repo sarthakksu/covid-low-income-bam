@@ -25,7 +25,7 @@ from __future__ import print_function
 
 import re
 import tensorflow.compat.v1 as tf
-from tensorflow.contrib import tpu as contrib_tpu
+#from tensorflow.contrib import tpu as contrib_tpu
 
 
 def create_optimizer(config, loss, num_train_steps):
@@ -75,8 +75,8 @@ def create_optimizer(config, loss, num_train_steps):
       epsilon=1e-6,
       exclude_from_weight_decay=["LayerNorm", "layer_norm", "bias"])
 
-  if config.use_tpu:
-    optimizer = contrib_tpu.CrossShardOptimizer(optimizer)
+  #if config.use_tpu:
+  #  optimizer = contrib_tpu.CrossShardOptimizer(optimizer)
 
   tvars = tf.trainable_variables()
   grads = tf.gradients(loss, tvars)

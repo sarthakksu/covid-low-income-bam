@@ -25,7 +25,7 @@ import sys
 import tensorflow.compat.v1 as tf
 
 from bam import configure
-from bam.bert import modeling
+#from bam.bert import modeling
 from bam.bert import optimization
 from bam.data import preprocessing
 from bam.data import task_weighting
@@ -34,7 +34,7 @@ from bam.helpers import utils
 from bam.task_specific import task_builder
 from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import tpu as contrib_tpu
-from transformers import TFAutoModel
+from transformers import TFAutoModel,AutoConfig
 
 class MultitaskModel(object):
   """A multi-task model built on top of BERT."""
@@ -42,13 +42,14 @@ class MultitaskModel(object):
   def __init__(self, config, tasks, task_weights, is_training,
                features, num_train_steps):
     # Create a shared BERT encoder
-    bert_config = modeling.BertConfig.from_json_file(config.bert_config_file)
+    #bert_config = modeling.BertConfig.from_json_file(config.bert_config_file)
+    bert_config = AutoConfig.from_pretrained(config.shared_encoder)
     if config.debug:
       bert_config.num_hidden_layers = 3
       bert_config.hidden_size = 144
     assert config.max_seq_length <= bert_config.max_position_embeddings
     with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):
-      bert_model = TFAutoModel.from_pretrained(config.shared_encoder)
+      bert_model = TFAutoModel.from_pretrained(config.shared_encoder, config=bert_config)
       #bert_model = modeling.BertModel(
       #    config=bert_config,
       #    is_training=is_training,
@@ -92,16 +93,16 @@ def model_fn_builder(config, tasks, task_weights, num_train_steps):
     # Load pre-trained weights from checkpoint
     tvars = tf.trainable_variables()
     scaffold_fn = None
-    if not config.debug:
-      assignment_map, _ = modeling.get_assignment_map_from_checkpoint(
-          tvars, config.init_checkpoint)
-      if config.use_tpu:
-        def tpu_scaffold():
-          tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
-          return tf.train.Scaffold()
-        scaffold_fn = tpu_scaffold
-      else:
-        tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
+    # if not config.debug:
+    #   assignment_map, _ = modeling.get_assignment_map_from_checkpoint(
+    #       tvars, config.init_checkpoint)
+    #   if config.use_tpu:
+    #     def tpu_scaffold():
+    #       tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
+    #       return tf.train.Scaffold()
+    #     scaffold_fn = tpu_scaffold
+    #   else:
+    #     tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
 
     # Run training or prediction
     if mode == tf.estimator.ModeKeys.TRAIN:
