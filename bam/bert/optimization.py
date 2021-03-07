@@ -218,7 +218,7 @@ def get_key_to_depths(n_layers):
 
 
 def _get_edecay_lrs(config, learning_rate):
-  n_layers = int(config.pretrained_model_name.split("L-")[1].split("_")[0])
+  n_layers = config.n_layers #int(config.pretrained_model_name.split("L-")[1].split("_")[0])
   return {
       key: learning_rate * (config.lr_decay ** (n_layers + 2 - depth))
       for key, depth in get_key_to_depths(n_layers).items()

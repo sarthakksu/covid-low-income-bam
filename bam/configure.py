@@ -20,7 +20,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-
+from transformers import AutoConfig
 
 class Config(object):
   """Hyperparameters for the model."""
@@ -42,6 +42,9 @@ class Config(object):
     self.task_names = ['rte', 'mrpc']  # which tasks to learn
     self.pretrained = True  # whether to use pre-trained weights
     self.pretrained_model_name = 'uncased_L-12_H-768_A-12'
+    self.shared_encoder = "bert-base-uncased"
+    bert_config = AutoConfig.from_pretrained(self.shared_encoder)
+    self.n_layers = bert_config.num_hidden_layers
     self.do_lower_case = True
     self.learning_rate = 1e-4
     self.weight_decay_rate = 0.01
@@ -116,6 +119,8 @@ class Config(object):
     self.init_checkpoint = os.path.join(bert_dir, 'bert_model.ckpt')
     self.shared_encoder = "bert-base-uncased"
 
+
+
     # where to save model checkpoints, results, etc.
     model_dir = os.path.join(topdir, 'models', self.model_name)
     self.checkpoints_dir = os.path.join(model_dir, 'checkpoints')
@@ -143,3 +148,5 @@ class Config(object):
       if k not in self.__dict__:
         raise ValueError('Unknown argument', k)
       self.__dict__[k] = v
+    bert_config = AutoConfig.from_pretrained(self.shared_encoder)
+    self.n_layers = bert_config.num_hidden_layers
