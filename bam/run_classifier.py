@@ -49,6 +49,8 @@ class MultitaskModel(object):
       bert_config.hidden_size = 144
     assert config.max_seq_length <= bert_config.max_position_embeddings
     with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):
+      print(tf.get_variable_scope())
+      tf.print(tf.get_variable_scope())
       bert_model = TFAutoModel.from_pretrained(config.shared_encoder, config=bert_config)
       #bert_model = modeling.BertModel(
       #    config=bert_config,
