@@ -74,14 +74,14 @@ def create_optimizer(config, loss, num_train_steps):
       beta_2=0.999,
       epsilon=1e-6,
       exclude_from_weight_decay=["LayerNorm", "layer_norm", "bias"])
-  print(learning_rate)
+  #print(learning_rate)
   
   #if config.use_tpu:
   #  optimizer = contrib_tpu.CrossShardOptimizer(optimizer)
 
   tvars = tf.trainable_variables()
   grads = tf.gradients(loss, tvars)
-  print(tvars)
+  #print(tvars)
   # This is how the model was pre-trained.
   (grads, _) = tf.clip_by_global_norm(grads, clip_norm=1.0)
 
