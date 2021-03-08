@@ -25,7 +25,7 @@ import sys
 import tensorflow.compat.v1 as tf
 
 from bam import configure
-#from bam.bert import modeling
+from bam.bert import modeling
 from bam.bert import optimization
 from bam.data import preprocessing
 from bam.data import task_weighting
@@ -95,16 +95,17 @@ def model_fn_builder(config, tasks, task_weights, num_train_steps):
     # Load pre-trained weights from checkpoint
     tvars = tf.trainable_variables()
     scaffold_fn = None
-    # if not config.debug:
-    #   assignment_map, _ = modeling.get_assignment_map_from_checkpoint(
-    #       tvars, config.init_checkpoint)
-    #   if config.use_tpu:
-    #     def tpu_scaffold():
-    #       tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
-    #       return tf.train.Scaffold()
-    #     scaffold_fn = tpu_scaffold
-    #   else:
-    #     tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
+    #if not is_training:
+    #  print(config.init_checkpoint)
+    #  assignment_map, _ = modeling.get_assignment_map_from_checkpoint(
+    #      tvars, config.init_checkpoint)
+    #  if config.use_tpu:
+    #    def tpu_scaffold():
+    #      tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
+    #      return tf.train.Scaffold()
+    #    scaffold_fn = tpu_scaffold
+    #  else:
+    #    tf.train.init_from_checkpoint(config.init_checkpoint, assignment_map)
 
     # Run training or prediction
     if mode == tf.estimator.ModeKeys.TRAIN:

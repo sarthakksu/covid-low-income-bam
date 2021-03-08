@@ -41,12 +41,12 @@ class Config(object):
     # model
     self.task_names = ['rte', 'mrpc']  # which tasks to learn
     self.pretrained = True  # whether to use pre-trained weights
-    self.pretrained_model_name = 'uncased_L-12_H-768_A-12'
-    self.shared_encoder = "bert-base-uncased"
+    self.pretrained_model_name = ''
+    self.shared_encoder = "vinai/bertweet-base"
     bert_config = AutoConfig.from_pretrained(self.shared_encoder)
     self.n_layers = bert_config.num_hidden_layers
-    self.do_lower_case = True
-    self.learning_rate = 1e-4
+    self.do_lower_case = False
+    self.learning_rate = 1e-5
     self.weight_decay_rate = 0.01
     self.lr_decay = 0.9  # if > 0, the learning rate for a particular layer is
                          # learning_rate * lr_decay^(depth - max_depth)
@@ -63,7 +63,7 @@ class Config(object):
 
     # sizing
     self.max_seq_length = 128
-    self.train_batch_size = 128
+    self.train_batch_size = 64
     self.eval_batch_size = 8
     self.predict_batch_size = 8
     self.double_unordered = True  # for tasks like paraphrase where sentence
@@ -117,7 +117,6 @@ class Config(object):
     self.bert_config_file = os.path.join(bert_dir, 'bert_config.json')
     self.vocab_file = os.path.join(bert_dir, 'vocab.txt')
     self.init_checkpoint = os.path.join(bert_dir, 'bert_model.ckpt')
-    self.shared_encoder = "bert-base-uncased"
 
 
 

@@ -92,6 +92,8 @@ def create_optimizer(config, loss, num_train_steps):
   # However, `AdamWeightDecayOptimizer` doesn't do this. But if you use
   # a different optimizer, you should probably take this line out.
   new_global_step = global_step + 1
+  tf.print("New global step")
+  tf.print(new_global_step)
   train_op = tf.group(train_op, [global_step.assign(new_global_step)])
   return train_op
 
