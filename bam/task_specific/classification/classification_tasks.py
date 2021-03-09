@@ -415,7 +415,7 @@ class CLI(ClassificationTask):
     return examples
 
   def get_scorer(self):
-    return classification_metrics.F1Scorer()
+    return classification_metrics.MultiF1Scorer()
 
 class TRECIS(ClassificationTask):
   """TREC-IS task"""

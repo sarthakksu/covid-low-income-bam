@@ -23,6 +23,7 @@ import abc
 import scipy
 import sklearn
 import numpy as np
+from sklearn.metrics import precision_recall_fscore_support
 
 from bam.task_specific import scorer
 
@@ -90,7 +91,26 @@ class F1Scorer(SentenceLevelScorer):
         ('f1', f1),
         ('loss', self.get_loss()),
     ]
+class MultiF1Scorer(SentenceLevelScorer):
+  """Computes F1 score for classification tasks."""
 
+  def __init__(self):
+    super(MultiF1Scorer, self).__init__()
+
+  def _get_results(self):
+    p,r,f1,_ = precision_recall_fscore_support(self._true_labels, self._preds, average='macro')
+    correct, count = 0, 0
+    for y_true, pred in zip(self._true_labels, self._preds):
+        count += 1
+        correct += (1 if y_true == pred else 0)
+    acc = 100.0 * correct / count
+    return [
+        ('precision', p),
+        ('recall', r),
+        ('f1', f1),
+        ('accuracy',acc),
+        ('loss', self.get_loss()),
+    ]
 
 class MCCScorer(SentenceLevelScorer):
 
