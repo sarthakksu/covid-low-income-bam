@@ -27,8 +27,8 @@ label_map = ['Stay at Home, quarantine',
                                'COVID-19 Psychological impacts (need to have clear signals of mental and stessful impacts)',
                                'Everyday life inconvenience/disruption on edcation and life']
 reverse_map = {v:k for k,v in enumerate(label_map)}
-pred_file = sys.argv[0]
-gold_file = sys.argv[1]
+pred_file = sys.argv[1]
+gold_file = sys.argv[2]
 with open(pred_file,'rb') as f:
   data = pickle.load(f)
 pred = [np.argmax(data[x]) for x in sorted(data)]

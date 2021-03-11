@@ -1,0 +1,1 @@
+trecis: accuracy: 72.14 - loss: 0.95

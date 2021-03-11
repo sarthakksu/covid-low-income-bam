@@ -1,0 +1,2 @@
+cli: precision: 0.66 - recall: 0.62 - f1: 0.63 - accuracy: 69.33 - loss: 2.10
+trecis: accuracy: 73.38 - loss: 2.57
